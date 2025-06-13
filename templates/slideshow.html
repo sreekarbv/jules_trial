@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slideshow</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Image Slideshow</h1>
+
+    {{if .ImageFilenames}}
+        <!-- <p>Uploaded Images (for debugging, will be replaced by slideshow):</p>
+        <ul> -->
+            <!-- {{range .ImageFilenames}}
+                <li>{{.}}</li>
+            {{end}} -->
+        <!-- </ul> -->
+
+        <div id="slideshow-container">
+            <!-- Current image will be loaded here by JavaScript -->
+            <img id="current-image" src="" alt="Slideshow Image">
+        </div>
+
+        <div id="controls">
+            <button id="prev-btn">Previous</button>
+            <button id="play-pause-btn">Play</button>
+            <button id="next-btn">Next</button>
+            <p id="current-image-info"></p> <!-- Moved here for better layout -->
+            <div>
+                Speed: <span id="current-speed">1.0</span>x
+                <button id="decrease-speed-btn">-</button>
+                <button id="increase-speed-btn">+</button>
+            </div>
+        </div>
+
+    {{else}}
+        <p class="no-images-message">No images uploaded yet. <a href="/">Upload some!</a></p>
+    {{end}}
+
+    {{if .ImageFilenames}}
+    <script>
+        var imageFilenames = [
+            {{range .ImageFilenames}}
+                "{{.}}",
+            {{end}}
+        ];
+        var imageBasePath = "/uploaded_images/"; // Base path for images
+    </script>
+    {{else}}
+    <script>
+        var imageFilenames = []; // Empty array if no images
+        var imageBasePath = "/uploaded_images/";
+    </script>
+    {{end}}
+    <script src="/static/js/slideshow.js" defer></script>
+</div>
+</body>
+</html>
