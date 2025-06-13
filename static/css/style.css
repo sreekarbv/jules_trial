@@ -1,142 +1,205 @@
 /* General body styling */
-body {
-    font-family: sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
-    color: #333;
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example modern font */
+    overflow-x: hidden; /* Prevent horizontal scroll if content overflows slightly */
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%); /* Adjusted Blue/Purple Gradient */
+    color: #fff; /* Default text color to white for better contrast on dark gradient */
     line-height: 1.6;
 }
 
 /* Container styling */
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    min-height: 100vh; /* Make container at least full viewport height */
+    margin: 0;
+    padding: 20px; /* Or adjust as needed */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content like upload form */
+    background-color: rgba(255, 255, 255, 0.92); /* Slightly transparent white */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Softer, more general shadow */
+    border-radius: 10px;
+    color: #333; /* Text inside the container should be dark */
 }
 
 /* Headings */
 h1 {
-    color: #333;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Example: Roboto is a common modern font */
+    font-weight: 500; /* Or 700 for bolder */
+    color: #333; /* Stays dark as it's in .container */
     text-align: center;
     margin-bottom: 20px;
+    /* text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Optional: subtle shadow for heading */
 }
 
 /* Upload Page form styling */
-form {
+/* For upload.html, if the form looks too wide */
+.upload-form-container { /* Add this class to the form tag or a div wrapping it */
+    width: 100%;
+    max-width: 500px; /* Or desired max width */
+    margin-top: 20px; /* Space from top or heading */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px; /* Added some margin to the top of the form */
+    padding: 25px; /* Increased padding */
+    background-color: rgba(255, 255, 255, 0.88); /* Slightly more opaque than controls */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12); /* Adjusted shadow */
+    margin-bottom: 20px; /* Space if there's content below it */
+}
+form { /* General form styling, can be more specific if needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center children of the form */
+    width: 100%; /* Make form take full width of its container */
 }
 
 input[type="file"] {
     margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9; /* Light background for file input */
+    padding: 12px; /* Slightly more padding */
+    border: 1px solid #ccc; /* Slightly darker border */
+    border-radius: 6px; /* Match button radius */
+    background-color: #fff; /* Ensure it's not transparent */
+    width: 100%; /* Make file input take full width of its container */
+    box-sizing: border-box; /* Ensure padding doesn't make it overflow */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
 }
 
-input[type="submit"], button { /* General button styling */
-    background-color: #5cb85c;
+/* General button styling - applies to upload submit and controls */
+button, input[type="submit"] {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Consistent font */
+    padding: 10px 20px; /* Adjusted padding */
+    border: none; /* Cleaner look */
+    border-radius: 6px; /* Softer radius */
+    background-color: #4a50a8; /* Base color from theme */
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px; /* Spacing for submit button and others */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    font-size: 0.95em;
+    transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth transitions */
+    margin: 5px;
 }
 
-input[type="submit"]:hover, button:hover {
-    background-color: #4cae4c;
+button:hover, input[type="submit"]:hover {
+    background-color: #3b3f82; /* Darker shade on hover */
+}
+
+button:active, input[type="submit"]:active {
+    transform: scale(0.96); /* Slight press effect */
+}
+
+button:disabled, input[type="submit"]:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: scale(1); /* No press effect for disabled */
 }
 
 /* Slideshow Page specific styling */
 #slideshow-container {
     text-align: center; /* Center the image */
-    margin-top: 20px; /* Added margin from h1 */
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 15px; /* Increased padding */
-    background-color: #f0f0f0; /* Slightly different background */
-    min-height: 400px; /* Adjust as needed */
+    /* margin-top: 20px; /* Added margin from h1 */ -> This is now on .upload-form-container or general container */
+    flex-grow: 1; /* Allows this to take up available space in a flex column container */
+    width: 95vw; /* Or 100% if padding is on a parent */
+    max-width: 1200px; /* Optional: constrain max width on very large screens */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px; /* Rounded corners for the container */
+    padding: 10px; /* Keep some padding */
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Space before controls */
+    background-color: rgba(255, 255, 255, 0.75); /* Semi-transparent white for the image backdrop */
+    border: 1px solid rgba(204, 204, 204, 0.4); /* Softer border */
+    border-radius: 8px; /* Rounded corners for the slideshow area */
 }
 
 #current-image {
     max-width: 100%;
-    max-height: 500px; /* Adjust as needed */
+    max-height: 80vh; /* Example: 80% of viewport height */
     display: block;
-    margin: auto;
-    border: 2px solid #ccc; /* Slightly thicker border */
-    border-radius: 4px; /* Rounded corners for image */
-    box-shadow: 0 0 8px rgba(0,0,0,0.15); /* Subtle shadow for image */
+    object-fit: contain; /* Scales image while maintaining aspect ratio, fitting within dimensions */
+    border-radius: 6px; /* Slightly more rounded corners for the image itself */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Refined shadow */
+    transition: box-shadow 0.3s ease-in-out; /* For potential hover effect, though not active */
 }
+
+/* Optional: Hover effect for image - uncomment if desired
+#current-image:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+*/
 
 #controls {
+    width: 100%; /* Controls take full width of the container */
+    max-width: 700px; /* But not too wide on large screens */
     text-align: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff; /* White background for controls area */
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    margin-top: 20px; /* Ensure spacing from image container */
+    margin-bottom: 20px; /* Keep some bottom margin */
+    padding: 15px; /* Increased padding */
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.85); /* Controls background slightly transparent */
+    border-radius: 8px; /* Match slideshow container rounding */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow from the top */
 }
 
-#controls button { /* Specific to slideshow control buttons */
-    margin: 8px; /* Increased margin */
-    background-color: #007bff; /* Blue for controls */
-}
-#controls button:hover {
-    background-color: #0056b3;
-}
+/* Specifics for slideshow controls, primarily for icons via ::before */
+/* #controls button will inherit general button styles */
 
-#controls div { /* For the speed control group */
-    margin-top: 15px; /* Increased margin */
-    padding: 10px;
-    border-top: 1px solid #eee; /* Separator for speed controls */
+#play-pause-btn[data-playing="true"]::before {
+    content: "❚❚ "; /* Pause symbol */
+    font-weight: bold;
 }
-#controls div button { /* Speed control buttons */
-    background-color: #6c757d; /* Grey for speed buttons */
-    padding: 8px 12px; /* Slightly smaller padding */
+#play-pause-btn[data-playing="false"]::before {
+    content: "► "; /* Play symbol */
+    font-weight: bold;
 }
-#controls div button:hover {
-    background-color: #5a6268;
+#prev-btn::before { content: "◀ "; font-weight: bold; }
+#next-btn::before { content: "▶ "; font-weight: bold; }
+#decrease-speed-btn { /* Custom styling for +/- if needed */
+    padding: 8px 15px; /* Adjust padding for smaller buttons */
 }
+#increase-speed-btn {
+    padding: 8px 15px; /* Adjust padding for smaller buttons */
+}
+/* No specific ::before for +/- as the text content IS the icon */
 
+
+#controls div {
+    margin-top: 10px; /* Adjusted margin */
+    padding: 10px 0; /* Adjusted padding */
+    border-top: 1px solid rgba(0,0,0,0.1); /* Softer border */
+}
+/* Speed control buttons already covered by general button styling */
+/* #controls div button { } */
 
 #current-speed {
     font-weight: bold;
-    margin: 0 10px; /* Increased margin */
-    color: #333;
+    margin: 0 8px; /* Adjusted margin */
+    color: #333; /* Text in controls div is dark */
 }
 
 #current-image-info {
     text-align: center;
     font-style: italic;
-    color: #555; /* Slightly darker color */
-    margin-top: 15px; /* Added margin */
-    margin-bottom: 15px; /* Added margin */
-    font-size: 0.95em;
+    color: #555; /* Slightly darker for better readability in its container */
+    margin-top: 15px; /* Space below the image/slideshow container */
+    margin-bottom: 10px; /* Space above controls */
+    font-size: 0.9em;
 }
 
 /* Links */
 a {
-    color: #007bff;
+    color: #007bff; /* Standard blue for links inside .container (light background) */
     text-decoration: none;
+    font-weight: bold; /* Make links stand out a bit more */
+    transition: color 0.2s ease-in-out; /* Smooth color transition for links */
 }
 
 a:hover {
     text-decoration: underline;
-    color: #0056b3;
+    color: #0056b3; /* Darker blue on hover */
 }
 
 /* Styling for the list of filenames on slideshow page (debugging info) */
@@ -171,4 +234,31 @@ ul li {
 
 .no-images-message a {
     font-weight: bold;
+}
+
+/* Feedback messages for upload status, etc. */
+.feedback-message {
+    padding: 12px 20px; /* Adjusted padding */
+    margin: 20px auto; /* Centered with auto margins, added top/bottom margin */
+    border-radius: 6px;
+    text-align: center;
+    max-width: 90%; /* Allow it to be reasonably wide */
+    font-size: 0.95em; /* Slightly larger */
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow for the message itself */
+}
+.feedback-message.success {
+    background-color: #d1e7dd; /* Slightly different green */
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+.feedback-message.error { /* For general errors or 'no new images' if preferred */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.feedback-message.warning { /* An alternative for 'no new images' or other non-critical issues */
+    background-color: #fff3cd; /* Bootstrap warning yellow */
+    color: #664d03;
+    border: 1px solid #ffecb5;
 }

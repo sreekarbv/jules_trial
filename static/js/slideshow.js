@@ -92,13 +92,15 @@ function resetTimer() {
 function playPause() {
     if (!imageFilenames || imageFilenames.length === 0) return; // No images to play
 
-    if (slideshowIntervalId) { // Playing, so pause
+    if (slideshowIntervalId) { // Currently playing, about to pause
         clearInterval(slideshowIntervalId);
         slideshowIntervalId = null;
         playPauseBtn.textContent = 'Play';
-    } else { // Paused, so play
+        playPauseBtn.setAttribute('data-playing', 'false');
+    } else { // Currently paused, about to play
         slideshowIntervalId = setInterval(nextImage, baseInterval / currentSpeedFactor);
         playPauseBtn.textContent = 'Pause';
+        playPauseBtn.setAttribute('data-playing', 'true');
     }
 }
 
@@ -120,7 +122,8 @@ function changeSpeed(factorAdjustment) {
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof imageFilenames !== 'undefined' && imageFilenames.length > 0) {
         showImage(0);
-        playPauseBtn.textContent = 'Play';
+        playPauseBtn.textContent = 'Play'; // Initial text
+        playPauseBtn.setAttribute('data-playing', 'false'); // Initial state
         currentSpeedDisplay.textContent = currentSpeedFactor.toFixed(2);
 
         prevBtn.addEventListener('click', () => {
@@ -143,32 +146,31 @@ document.addEventListener('DOMContentLoaded', () => {
             if (count > 0) {
                 const feedback = document.createElement('p');
                 feedback.textContent = `${count} image(s) uploaded successfully!`;
-                feedback.style.color = 'green';
-                feedback.style.backgroundColor = '#e6ffed';
-                feedback.style.padding = '10px';
-                feedback.style.borderRadius = '5px';
-                feedback.style.textAlign = 'center';
-                feedback.style.marginTop = '10px';
-                feedback.style.marginBottom = '10px';
+                feedback.className = 'feedback-message success';
 
-                const container = document.querySelector('.container h1'); // Insert after H1
-                if (container) {
-                    container.parentNode.insertBefore(feedback, container.nextSibling);
+                const containerH1 = document.querySelector('.container h1'); // Insert after H1
+                if (containerH1) {
+                    containerH1.parentNode.insertBefore(feedback, containerH1.nextSibling);
+                } else { // Fallback if h1 is not found (e.g. add to start of .container)
+                    const mainContainer = document.querySelector('.container');
+                    if (mainContainer) {
+                        mainContainer.prepend(feedback);
+                    }
                 }
                 setTimeout(() => { feedback.remove(); }, 5000);
             } else if (count === 0 && urlParams.has('uploaded')) { // explicitly uploaded=0 means files were submitted but none were valid
-                 const feedback = document.createElement('p');
+                const feedback = document.createElement('p');
                 feedback.textContent = `No new valid images were uploaded. Please ensure files are of type JPG, PNG, or GIF and within size limits.`;
-                feedback.style.color = 'darkorange';
-                feedback.style.backgroundColor = '#fff8e1';
-                feedback.style.padding = '10px';
-                feedback.style.borderRadius = '5px';
-                feedback.style.textAlign = 'center';
-                feedback.style.marginTop = '10px';
-                feedback.style.marginBottom = '10px';
-                const container = document.querySelector('.container h1');
-                if (container) {
-                    container.parentNode.insertBefore(feedback, container.nextSibling);
+                feedback.className = 'feedback-message warning';
+
+                const containerH1 = document.querySelector('.container h1');
+                if (containerH1) {
+                    containerH1.parentNode.insertBefore(feedback, containerH1.nextSibling);
+                } else {
+                    const mainContainer = document.querySelector('.container');
+                    if (mainContainer) {
+                        mainContainer.prepend(feedback);
+                    }
                 }
                 setTimeout(() => { feedback.remove(); }, 7000);
             }
@@ -182,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prevBtn) prevBtn.disabled = true;
         if (playPauseBtn) {
             playPauseBtn.disabled = true;
-            playPauseBtn.textContent = 'Play';
+            playPauseBtn.textContent = 'Play'; // Ensure text is 'Play' if disabled
+            playPauseBtn.setAttribute('data-playing', 'false');
         }
         if (nextBtn) nextBtn.disabled = true;
         if (decreaseSpeedBtn) decreaseSpeedBtn.disabled = true;
